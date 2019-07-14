@@ -18,7 +18,6 @@ var GetIntAbs func(int) int
 var Atoi func(string) int
 var FindMin func([] int) int
 var FindMax func([] int) int
-var StrReverse func(string) string
 
 func init() {
 	ReadString = newReadString()
@@ -28,25 +27,30 @@ func init() {
 	ReadIntSlice = readIntSlice
 	FindMin = findMin
 	FindMax = findMax
-	StrReverse = strReverse
 }
 
 func main() {
-	n := ReadInt()
-	a := ReadIntSlice(n)
+	A := ReadInt()
+	B := ReadInt()
+	C := ReadInt()
+	X := ReadInt()
 
-	fmt.Println(n, a)
-}
-
-func strReverse(s string) string {
-	runes := []rune(s)
-	l := len(runes)
-	for i, j := 0, l-1; i < j; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
+	var r int
+	// このくらいなら全探索してもCTEにならない
+	for a := 0; a <= A; a++ {
+		for b := 0; b <= B; b++ {
+			for c := 0; c <= C; c++ {
+				total := (500 * a) + (100 * b) + (50 * c)
+				if total == X {
+					r += 1
+				}
+			}
+		}
 	}
-	return string(runes)
+	fmt.Println(r)
 }
 
+/*------ scan ------*/
 
 func newReadString() func() string {
 	sc.Buffer(make([]byte, 1024), 2048)
