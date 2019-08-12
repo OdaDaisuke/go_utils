@@ -1,19 +1,20 @@
 package main
 
 import (
-	"github.com/OdaDaisuke/go_utils/timing"
-	"fmt"
-	"runtime"
-	"time"
+	"github.com/OdaDaisuke/go_utils/db"
+	"log"
 )
 
 func main() {
-	fmt.Println("num goroutine: ", runtime.NumGoroutine())
-	timing.SetInterval(func () {
-		time.Sleep(5 * time.Second)
-		fmt.Println("num goroutine: ", runtime.NumGoroutine())
-	}, 1, true)
-	//runtime.GC()
-	//debug.FreeOSMemory()
-	time.Sleep(time.Hour)
+	dbCtx, err := db.Init("mysql", &db.DataBaseSource{
+		User: "root",
+		Password: "",
+		Host: "localhost",
+		Port: "3306",
+		DBName: "app",
+	}, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("db ctx -> ", dbCtx)
 }
