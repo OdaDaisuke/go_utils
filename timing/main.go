@@ -7,10 +7,11 @@ import (
 	"syscall"
 )
 
-func SetInterval(f func(), ms int, async bool) {
+func SetInterval(f func(), ms int, async bool) chan bool {
 	interval := time.Duration(ms) * time.Millisecond
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
+	clear := make(chan bool)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig,
@@ -31,6 +32,10 @@ func SetInterval(f func(), ms int, async bool) {
 				} else {
 					f()
 				}
+			case <- clear:
+				ticker.Stop()
+				return
+
 			case s := <-sig:
 				switch s {
 				// WindowsだとSIGKILL以外効かない
@@ -41,4 +46,5 @@ func SetInterval(f func(), ms int, async bool) {
 
 		}
 	}()
+	return clear
 }
