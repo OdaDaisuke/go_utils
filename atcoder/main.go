@@ -33,10 +33,8 @@ func init() {
 }
 
 func main() {
-	n := ReadInt()
-	a := ReadIntSlice(n)
-
-	fmt.Println(n, a)
+	s := ReadString()
+	fmt.Println(s)
 }
 
 func strReverse(s string) string {
@@ -50,7 +48,7 @@ func strReverse(s string) string {
 
 
 func newReadString() func() string {
-	sc.Buffer(make([]byte, 1024), 2048)
+	sc.Buffer(make([]byte, 202400), 404800)
 	sc.Split(bufio.ScanWords)
 	return func() string {
 		if !sc.Scan() {
