@@ -29,6 +29,7 @@ func init() {
 	FindMin = findMin
 	FindMax = findMax
 	StrReverse = strReverse
+	GetIntAbs = getIntAbs
 }
 
 func main() {
