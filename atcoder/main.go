@@ -2,9 +2,9 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
-	"fmt"
 )
 
 var sc = bufio.NewScanner(os.Stdin)
@@ -16,9 +16,10 @@ var ReadIntSlice func(int) []int
 var ReadInt64Slice func(int) []int64
 var GetIntAbs func(int) int
 var Atoi func(string) int
-var FindMin func([] int) int
-var FindMax func([] int) int
+var FindMin func([]int) int
+var FindMax func([]int) int
 var StrReverse func(string) string
+var NthB func(int, int) int
 
 func init() {
 	ReadString = newReadString()
@@ -30,6 +31,7 @@ func init() {
 	FindMax = findMax
 	StrReverse = strReverse
 	GetIntAbs = getIntAbs
+	NthB = nthB
 }
 
 func main() {
@@ -45,7 +47,6 @@ func strReverse(s string) string {
 	}
 	return string(runes)
 }
-
 
 func newReadString() func() string {
 	sc.Buffer(make([]byte, 202400), 404800)
@@ -136,4 +137,9 @@ func findMax(arr []int) int {
 		}
 	}
 	return max
+}
+
+// nのnthビット目
+func nthB(n, nth int) int {
+	return n >> uint(nth) & 1
 }
